@@ -12,14 +12,14 @@ Resources:
   CanaryExecutionRole:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument: 
+      AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
-      ManagedPolicyArns: 
+      ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyName: CanaryExecutionPolicy
@@ -57,29 +57,6 @@ Resources:
                   StringEquals:
                     cloudwatch:namespace: CloudWatchSynthetics
 
-  #  Canary lambda that runs when invoked with sam local invoke
-  NodeJSPuppeteerCanary:
-    Type: AWS::Serverless::Function
-    Properties:
-      Description: Local Synthetics NodeJS Puppeteer Canary
-      Handler: cw-synthetics.handler # Do not change this. Specify your canary handler in event.json.
-      Runtime: nodejs18.x
-      Architectures:
-        - x86_64
-      CodeUri: src/
-      MemorySize: 1500
-      Timeout: 300
-      Environment:
-        Variables:
-          MODE: "Local canary test"
-      Layers:
-        # Synthetics runtime layer
-        # Use the appropriate Layer ARN to run your canary against the intended Synthetics runtime in the desired AWS region.
-        # Refer to the CloudWatch Synthetics documentation to find the Layer ARN list for the supported runtimes in all supported AWS Regions.
-        # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Debug_Locally.html#CloudWatch_Synthetics_Debug_DifferentRuntime
-         - arn:aws:lambda:us-west-2:760325925879:layer:Synthetics:47 # syn-nodejs-puppeteer-7.0
-      Role: !GetAtt CanaryExecutionRole.Arn
-
   NodeJSPlaywrightCanary:
     Type: AWS::Serverless::Function
     Properties:
@@ -99,5 +76,5 @@ Resources:
         # Use the appropriate Layer ARN to run your canary against the intended Synthetics runtime in the desired AWS region.
         # Refer to the CloudWatch Synthetics documentation to find the Layer ARN list for the supported runtimes in all supported AWS Regions.
         # https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Debug_Locally.html#CloudWatch_Synthetics_Debug_DifferentRuntime
-         - arn:aws:lambda:us-west-2:760325925879:layer:AWS-CW-SyntheticsNodeJsPlaywright:1 # syn-nodejs-playwright-1.0
+        - arn:aws:lambda:us-east-1:378653112637:layer:AWS-CW-SyntheticsNodeJsPlaywright:4
       Role: !GetAtt CanaryExecutionRole.Arn

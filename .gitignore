@@ -1,1 +1,6 @@
 .aws-sam
+.DS_Store
+**/artifacts/**
+**/node_modules/**
+**/test-results/**
+

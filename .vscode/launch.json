@@ -1,117 +1,35 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "aws-sam",
-            "request": "direct-invoke",
-            "name": "SAM:Run NodeJS Puppeteer Canary",
-            "invokeTarget": {
-                "target": "template",
-                "templatePath": "${workspaceFolder}/nodejs-canary/template.yml",
-                "logicalId": "NodeJSPuppeteerCanary"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "SAM:Run NodeJS Playwright Canary",
+      "invokeTarget": {
+        "target": "template",
+        "templatePath": "${workspaceFolder}/nodejs-canary/template.yml",
+        "logicalId": "NodeJSPlaywrightCanary"
+      },
+      "lambda": {
+        "payload": {
+          "json": {
+            "canaryName": "LocalSyntheticsCanary",
+            "artifactS3Location": {
+              "s3Bucket": "cw-syn-results-397389481228-us-east-1",
+              "s3Key": "local-run-artifacts",
             },
-            "lambda": {
-                "payload": {
-                    "json": {
-                        "canaryName": "LocalSyntheticsCanary",
-                        "artifactS3Location": {
-                            "s3Bucket": "cw-syn-results-123456789012-us-west-2",
-                            "s3Key": "local-run-artifacts",
-                        },
-                        "customerCanaryHandlerName": "heartbeat-canary.handler",
-                        "canaryRunId": "random-uuid" 
-                    }
-                },
-                "environmentVariables": {}
-            },
-            "sam": {
-                "localArguments": ["--invoke-image", "public.ecr.aws/lambda/nodejs:18.2023.11.18.01"],
-                "skipNewImageCheck": true
-            }
+            "customerCanaryHandlerName": "playwright-canary.handler",
+            "canaryRunId": "random-uuid"
+          }
         },
-        {
-            "type": "aws-sam",
-            "request": "direct-invoke",
-            "name": "SAM:Run NodeJS Playwright Canary",
-            "invokeTarget": {
-                "target": "template",
-                "templatePath": "${workspaceFolder}/nodejs-canary/template.yml",
-                "logicalId": "NodeJSPlaywrightCanary"
-            },
-            "lambda": {
-                "payload": {
-                    "json": {
-                        "canaryName": "LocalSyntheticsCanary",
-                        "artifactS3Location": {
-                            "s3Bucket": "cw-syn-results-123456789012-us-west-2",
-                            "s3Key": "local-run-artifacts",
-                        },
-                        "customerCanaryHandlerName": "playwright-canary.handler",
-                        "canaryRunId": "random-uuid"
-                    }
-                },
-                "environmentVariables": {}
-            },
-            "sam": {
-                "localArguments": ["--invoke-image", "public.ecr.aws/lambda/nodejs:20"],
-                "skipNewImageCheck": true
-            }
-        },
-        {
-            "type": "aws-sam",
-            "request": "direct-invoke",
-            "name": "SAM:Run Python Canary",
-            "invokeTarget": {
-                "target": "template",
-                "templatePath": "${workspaceFolder}/python-canary/template.yml",
-                "logicalId": "PythonSeleniumCanary"
-            },
-            "lambda": {
-                "payload": {
-                    "json": {
-                        "canaryName": "LocalSyntheticsCanary",
-                        "artifactS3Location": {
-                            "s3Bucket": "cw-syn-results-123456789012-us-west-2",
-                            "s3Key": "local-run-artifacts",
-                        },
-                        "customerCanaryHandlerName": "heartbeat-canary.handler",
-                        "canaryRunId": "random-uuid"
-                    }
-                },
-                "environmentVariables": {}
-            },
-            "sam": {
-                "localArguments": ["--invoke-image", "public.ecr.aws/lambda/python:3.8.2023.11.18.02"],
-                "skipNewImageCheck": true
-            }
-        },
-        {
-            "type": "aws-sam",
-            "request": "direct-invoke",
-            "name": "SAM:Run Java Canary",
-            "invokeTarget": {
-                "target": "template",
-                "templatePath": "${workspaceFolder}/java-canary/template.yml",
-                "logicalId": "JavaCanary"
-            },
-            "lambda": {
-                "payload": {
-                    "json": {
-                        "canaryName": "LocalSyntheticsCanary",
-                        "artifactS3Location": {
-                            "s3Bucket": "cw-syn-results-123456789012-us-west-2",
-                            "s3Key": "local-run-artifacts",
-                        },
-                        "customerCanaryHandlerName": "org.example.monitoring.MonitoringAppGeneric::handler",
-                        "canaryRunId": "random-uuid"
-                    }
-                },
-                "environmentVariables": {}
-            },
-            "sam": {
-                "localArguments": ["--invoke-image", "public.ecr.aws/lambda/java:21"],
-                "skipNewImageCheck": true
-            }
-        }
-    ]
+      },
+      "sam": {
+        "localArguments": [
+          "--invoke-image",
+          "public.ecr.aws/lambda/nodejs:20"
+        ],
+        "skipNewImageCheck": true
+      }
+    },
+  ]
 }
