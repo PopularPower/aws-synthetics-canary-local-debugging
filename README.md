@@ -13,7 +13,18 @@ So here is what I did:
   3. Installed the prerequisites per above
   4. modified the file playwright-canary.mjs to be script I wanted
 
-The process is tedious.  Each time the script changes you must run `sam build` and then `sam local invoke NodeJSPlaywrightCanary -e event.json` to run it.
+The process is tedious.  Each time the script changes you must run 
+
+```
+sam build
+sam local invoke NodeJSPlaywrightCanary -e event.json
+```
+
+Notes:
+
+* you must run this from the `nodejs-canary` directory 
+* you must be authenticated via commande line to AWS. 
+
 You can not see it execute so you must use good logging in the code and rely on the screen shots saved in https://us-east-1.console.aws.amazon.com/s3/buckets/cw-syn-results-397389481228-us-east-1/local-run-artifacts/
 
 Once debugged locally, it was easiest to create a New Canary using the Inline Editor option, and correct runtime (Playwright 2.0 for now).
