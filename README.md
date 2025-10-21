@@ -117,28 +117,6 @@ There is no cost incurred for running and debugging canary locally except for th
 ![VS Code debug mode](vscode-local-debug.png)
 
 
-## Debugging canary in JetBrains IDE
-If you use [JetBrains IDE](https://www.jetbrains.com/idea/) then you will require [AWS Toolkit for IntelliJ IDEA](https://aws.amazon.com/intellij/) extension is installed and bundled **Node.js** plugin and **JavaScript Debugge**r are enabled to run and debug canary (required for NodeJS canary). Once you have the extension installed follow these steps.
-
-1. Create **Run/Debug** configuration by choosing AWS Lambda -> Local configuration template.
-2. Provide a name for the run configuration eg: [Local] LocalSyntheticsCanary.
-3. Select **From template** option, click on the file browser in the template field and select the `template.yml` file from the project (either from nodejs directory or python directory).
-4. Under input section, provide the payload for the canary as shown below. Other optional fields are listed in **VS Code launch configuration** section.
-```
-{
-    "canaryName": "LocalSyntheticsCanary",
-    "artifactS3Location": {
-        "s3Bucket": "cw-syn-results-123456789012-us-west-2",
-        "s3Key": "local-run-artifacts"
-    },
-    "customerCanaryHandlerName": "heartbeat-canary.handler",
-    "canaryRunId": "random-uuid"
-}
-```
-
-![JetBrains debug mode](jetbrains-local-debug.png)
-
-
 ## Run canary locally with SAM CLI
 1. Make sure to specify your own S3 bucket name for `s3Bucket` in `event.json` and change the handler name appropriately.
 2. To run NodeJS canary, go to `nodejs-canary` directory and run following commands.
