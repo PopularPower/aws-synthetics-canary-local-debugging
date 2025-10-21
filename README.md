@@ -23,7 +23,7 @@ I was able to use an existing Notification rule for sending email for now.
 
 Below this is mostly the original README but I have removed references to Python or Java setups
 
-##--------------------------------------------------------------------
+## --------------------------------------------------------------------
 
 This repository contains code examples and related resources showing you how to run, test and debug Synthetics Canary locally on your computer.
 
