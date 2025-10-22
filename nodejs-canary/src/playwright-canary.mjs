@@ -57,9 +57,9 @@ export const handler = async (event, context) => {
     })
 
     await synthetics.executeStep('Login', async function () {
-      await page.type('.mat-mdc-form-field #login-email', "greg+synthetic-canary@popularpower.io")
+      await page.type('.mat-mdc-form-field #login-email', "{add user name}")
 
-      await page.type('.mat-mdc-form-field #login-password', "@#$greg+synthetic-canary")
+      await page.type('.mat-mdc-form-field #login-password', "{add password}")
 
       await page.click('.content #login-button', "")
     })
